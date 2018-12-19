@@ -3,14 +3,14 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $db_name="planner1";
-
+//faisal khan testing changes
 // Create connection
 $conn = new mysqli($servername, $username, $password,$db_name);
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
 echo "Connected successfully";
 
 ################################################################# Get number of script from cbr_detail #################################
@@ -52,7 +52,7 @@ foreach ($found_id_rel as $key => $value) {
 
 	if(!($arrlength_blobs==0)){
 		for($x = 0; $x < $arrlength_blobs; $x++) {
-			 
+
 			//echo "FFFF-- $arrlength_blobs --".$output_get_table[$x]['pr_scen_out'];
 			$str_arr = preg_split ("/[\,\n]/", $output_get_table[$x]['pr_scen_out']);
 			for($s = 1; $s < count($str_arr); $s=$s+3) {
@@ -85,9 +85,9 @@ $arrlength = count($output_get_PR);
 $all_releases=array();
 
 for($x = 0; $x < $arrlength; $x++) {
-	
+
 	$cnt_prs=preg_split("/\n/", $output_get_PR[$x]['prs']);
-	
+
 	$all_releases[$output_get_PR[$x]['relname']]=count($cnt_prs);
 	//echo count($cnt_prs);
 	//echo "<br>";
