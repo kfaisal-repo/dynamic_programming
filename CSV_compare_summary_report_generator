@@ -1,0 +1,70 @@
+import csv
+import collections
+import webbrowser
+import os,re
+
+
+cwd=os.getcwd();
+createcsv="python3 "+cwd+"/"+"createCSVs.py"
+os.system(createcsv)
+
+
+
+
+files = [f for f in os.listdir('.') if re.match(r'.*_bench\.csv', f)]
+
+
+count=0
+summary_table_name="Summary"
+f_summary=open(summary_table_name+".html",'w')
+
+titles   =   '''<title>Schema Difference Evaluator</title>'''
+
+styles='''
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #000000;
+  text-align: left;
+  padding: 8px;
+}
+
+tr {
+  background-color: #F0F8FA;
+}
+</style>
+'''
+
+heading1="<h1>Summary - Schema Difference Evaluator</h1>"
+
+full_table_header1='''
+    <tr>
+    <th>Table Name</th>
+    <th>Parameters</th>
+  </tr>
+'''
+
+f_summary.write("<html><head>"+titles+styles+"</head>"+"<body>"+heading1+"<table>"+full_table_header1)
+f_summary.close()
+
+for i in files:
+    if count <=3:
+         benchmark_file=i
+         warehouse_file=i.replace("_bench","_mod")
+         final_string="python3 "+cwd+"/"+"SchemaValidation.py"+" "+benchmark_file+" "+warehouse_file
+         os.system(final_string)
+         final_string=""
+         count+=1
+
+
+f_summary=open(summary_table_name+".html",'a')
+f_summary.write("</table></html>")
+f_summary.close()
+
+filename = 'file:///Users/fafakhan/PycharmProjects/DW_Validation/' +summary_table_name +'.html'
+webbrowser.open_new_tab(filename)
